@@ -1,6 +1,7 @@
 import sharp from "sharp"
+import { UserData } from "./user-data"
 
-export const generateImage = async () => {
+export const generateImage = async (userData: UserData) => {
     return sharp("./layers/Background/Black#1.png").composite([
         ...conditional(await eyeball()),
         ...conditional(await eyeColor()),
@@ -8,7 +9,7 @@ export const generateImage = async () => {
         ...conditional(await shine()),
         ...conditional(await bottomLid()),
         ...conditional(await topLid()),
-        ...conditional(await goo()),
+        ...conditional(await goo(userData)),
     ])
 }
 
@@ -46,7 +47,11 @@ const eyeball = async (): Promise<sharp.OverlayOptions | null> => {
     }
 }
 
-const goo = async (): Promise<sharp.OverlayOptions | null> => {
+const goo = async (userData: UserData): Promise<sharp.OverlayOptions | null> => {
+    // Only show goo for users with level 10 or higher
+    if (userData.level < 10) {
+        return null
+    }
     const overlay = sharp("./layers/Goo/Green#1.png").resize(512)
     const buffer = await overlay.toBuffer()
     return {
