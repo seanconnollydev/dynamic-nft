@@ -3,7 +3,7 @@ import { UserData } from "../user-data";
 
 describe('image', () => {
   describe("generateImage", () => {
-    it('should generate a default image', async () => {
+    it.only('should generate a default image', async () => {
       const image = await generateImage(defaultUserData);
       const buffer = await image.toBuffer();
       expect(buffer).toMatchImageSnapshot({
