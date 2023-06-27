@@ -11,7 +11,7 @@ describe('image', () => {
       })
     });
 
-    it.each([10, 15, 20, 39, 81])('should display goo when user is level 10 or higher', async (level) => {
+    it.each([10, 15, 20, 39, 81])('should get sassy when user is level 10 or higher', async (level) => {
       const image = await generateImage({
         ...defaultUserData,
         level,

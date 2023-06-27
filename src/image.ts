@@ -26,17 +26,8 @@ const cat = async (): Promise<sharp.OverlayOptions | null> => {
 }
 
 const eyes = async (userData: UserData): Promise<sharp.OverlayOptions | null> => {
-    if (userData.level < 10) {
-        const overlay = sharp("./layers/Eyes/eyes_1.png").resize(560)
-        const buffer = await overlay.toBuffer()
-        return {
-            input: buffer,
-            top: 190,
-            left: 234,
-        }
-    }
-    
-    const overlay = sharp("./layers/Eyes/eyes_2.png").resize(560)
+    const assetPath = userData.level < 10 ? "./layers/Eyes/eyes_1.png" : "./layers/Eyes/eyes_2.png"
+    const overlay = sharp(assetPath).resize(560)
     const buffer = await overlay.toBuffer()
     return {
         input: buffer,
@@ -46,21 +37,12 @@ const eyes = async (userData: UserData): Promise<sharp.OverlayOptions | null> =>
 }
 
 const mouth = async (userData: UserData): Promise<sharp.OverlayOptions | null> => {
-    if (userData.level < 10) {
-        const overlay = sharp("./layers/mouth/mouth_1.png").resize(338)
-        const buffer = await overlay.toBuffer()
-        return {
-            input: buffer,
-            top: 320,
-            left: 345,
-        }
+    const assetPath = userData.level < 10 ? "./layers/mouth/mouth_1.png" : "./layers/mouth/mouth_2.png"
+    const overlay = sharp(assetPath).resize(338)
+    const buffer = await overlay.toBuffer()
+    return {
+        input: buffer,
+        top: 320,
+        left: 345,
     }
-    
-    const overlay = sharp("./layers/mouth/mouth_2.png").resize(338)
-        const buffer = await overlay.toBuffer()
-        return {
-            input: buffer,
-            top: 320,
-            left: 345,
-        }
 }
